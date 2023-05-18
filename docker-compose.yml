@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  ubuntu:
+    container_name: ubuntu
+    image: ubuntu:latest
+
+  apache:
+    container_name: apache
+    build: ./docker/apache
+    depends_on:
+      - php
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/usr/local/apache2/htdocs
+    networks:
+      - mi-red-dan
+
+  php:
+    container_name: php
+    build: ./docker/php
+    depends_on:
+      - mongo
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./html:/usr/local/apache2/htdocs
+    working_dir: /usr/local/apache2/htdocs
+    networks:
+      - mi-red-dan
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database/mongodb/db:/data/db
+      - ./database/mongodb/dev.archive:/Databases/dev.archive
+      - ./database/mongodb/production:/Databases/production
+    networks:
+      - mi-red-dan
+
+networks:
+  mi-red-dan:
