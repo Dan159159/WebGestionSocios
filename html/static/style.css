@@ -1,0 +1,49 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+  }
+  
+  /* Estilos para el encabezado */
+  header {
+    background-image: url(../img/portada2.jpg);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 20px;
+    height: 500px; /* Ajustar la altura según sea necesario */
+}
+  
+  /* Estilos para la barra de navegación */
+  nav {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .nav-link {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  
+  .nav-link:hover {
+    transform: translateY(-3px); /* Desplaza hacia arriba */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Sombra de texto */
+  }
+  
+  /* Estilos para el contenido principal */
+  main {
+    padding: 20px;
+  }
+
+  
+  
+  /* Estilos para el pie de página */
+  footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+  }
+  
