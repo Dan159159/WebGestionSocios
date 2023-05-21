@@ -1,5 +1,10 @@
-
-‹
-1
-2
-›
+Bases de datos – Consultas necesarias:
+a. Obtén los socios que más acuden al polideportivo
+b. Obtén los socios que más acuden por polideportivo
+c. Obtén la media de gente que va los sábados al polideportivo (por cada
+polideportivo)
+d. Obtén los socios que han ido al polideportivo menos de 5 días al mes
+e. Obtener todas las entradas del socio a los polideportivos (se valorará filtro)
+3) Operaciones CRUD:
+a. Insertar socio, Obtener socio, modificar socio, eliminar socio
+b. Añadir entrada (socio, polideportivo, días, hora)
