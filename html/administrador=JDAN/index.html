@@ -10,7 +10,13 @@
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <!-- ========== Start script confirmation ========== -->
+  <script>
+    
+  
 
+  </script>
+  <!-- ========== End script confirmation ========== -->
 </head>
 
 <body>
@@ -34,7 +40,7 @@
         <td><?php echo $socio['nombre']; ?></td>
         <td><?php echo $socio['edad']; ?></td>
         <td><?php echo $socio['genero']; ?></td>
-        <td><a href='insertar.php?eliminar=<?= $socio['idSocio'] ?>'>Delete</a></td>
+        <td><a onclick='eliminarSocio()' href='insertar.php?eliminar=<?= $socio['idSocio'] ?>'>Delete</a></td>
         <td><a href='editar_registro.php?id=<?= $socio['idSocio'] ?>'>Update</a></td>
       </tr>
       <?php } ?>
@@ -47,7 +53,7 @@
           <td><input type="text" name="edad"></td>
           <td><input type="text" name="genero"></td>
           <td></td>
-          <td><input type="submit" value="Insert"></td>
+          <td><input type="submit" value="Insert" onclick="insetarSocio()"></td>
         </form>
       </tr>
       <!-- ========== End Insertar Mongo ========== -->
@@ -58,7 +64,26 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
+  function eliminarSocio() {
+    // Mostrar mensaje de confirmación
+    var respuesta = confirm("¿Estás seguro de que deseas eliminar este socio?");
+
+    // Si el usuario acepta
+    if (respuesta) {
+      // Continuar con la acción de eliminación
+      location.href = event.target.href;
+    } else {
+      // Cancelar la acción de eliminación
+      event.preventDefault();
+    }
+  }
+    function insetarSocio() {
+      // Mostrar mensaje de confirmación
+      var respuesta = confirm("¿Estás seguro de que deseas ejecutar esta acción?");
+
+      // Si el usuario acepta
+      if (respuesta=== true) {
+        $(document).ready(function() {
         $("form").submit(function(e) {
             e.preventDefault();
             var idSocio = $("input[name=idSocio]").val();
@@ -81,6 +106,13 @@
             });
         });
     });
+        // Actualizar la página
+        location.reload();
+      }else{
+        return;
+      }
+    }
+    
 </script>
 
   
