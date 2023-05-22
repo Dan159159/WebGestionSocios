@@ -6,5 +6,5 @@ polideportivo)
 d. Obtén los socios que han ido al polideportivo menos de 5 días al mes
 e. Obtener todas las entradas del socio a los polideportivos (se valorará filtro)
 3) Operaciones CRUD:
-a. Insertar socio, Obtener socio, modificar socio, eliminar socio
+////COMPLETADO V1:a. Insertar socio, Obtener socio, modificar socio, eliminar socio
 b. Añadir entrada (socio, polideportivo, días, hora)
