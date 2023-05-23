@@ -8,3 +8,5 @@ e. Obtener todas las entradas del socio a los polideportivos (se valorará filtr
 3) Operaciones CRUD:
 ////COMPLETADO V1:a. Insertar socio, Obtener socio, modificar socio, eliminar socio
 b. Añadir entrada (socio, polideportivo, días, hora)
+
+SELECT COUNT(a.idSocio), u.nombre, p.nombre FROM asistencias a INNER JOIN polideportivos p on p.idPolideportivo = a.idPolideportivo , Inner Join usuarios on u.idSocio = a.idSocio;
