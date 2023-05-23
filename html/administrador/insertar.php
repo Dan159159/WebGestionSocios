@@ -57,14 +57,14 @@ function insertarSocio($idSocio, $nombre, $edad, $genero) {
 
 //Eliminar Socios
 function eliminarSocio($idSocio) {
-  global $manager;  // Acceder a la variable global $manager
-  global $bulk;  // Acceder a la variable global $bulk
+  global $manager;  
+  global $bulk; 
 
   $filtro = ['idSocio' => $idSocio];
   $bulk->delete($filtro);
   $manager->executeBulkWrite('db_polideportivos.usuarios', $bulk);
 }
-
+// Recibir formulario 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $idSocio = $_POST['idSocio'];
   $nombre = $_POST['nombre'];
@@ -78,6 +78,7 @@ else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['eliminar'])) {
 
   eliminarSocio($idSocioEliminar);
 }
+// Incluir app.hmtl e index.html 
 $titulo = 'Bienvenido Administrador';
 $child = "index.html";
 include('./views/app.html');

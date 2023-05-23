@@ -1,5 +1,5 @@
 <?php
-
+// Obenter socio segun el ID
 function getSocioById($id) {
   $manager = new MongoDB\Driver\Manager("mongodb://root:password@mongo:27017");
 
@@ -21,7 +21,7 @@ function getSocioById($id) {
 
   return $socios;
 }
-
+// Actualizare socio
 function actualizarSocio($idSocio, $nombre, $edad, $genero) {
   $manager = new MongoDB\Driver\Manager("mongodb://root:password@mongo:27017");
 
@@ -35,7 +35,8 @@ function actualizarSocio($idSocio, $nombre, $edad, $genero) {
 
   $manager->executeBulkWrite('db_polideportivos.usuarios', $bulk);
 }
-
+// Cambios en el formulario
+// Ejcutar  actualizar Socio
 $id = $_GET['id'] ?? null;
 
 if ($id) {
@@ -46,17 +47,16 @@ if ($id) {
       $genero = $_POST['genero'];
 
       actualizarSocio($idSocio, $nombre, $edad, $genero);
-
-      // Redireccionar o mostrar un mensaje de éxito
-      // header("Location: archivo_de_exito.php");
-      // echo "Actualización exitosa";
   }
-
+// Ejcutar getSocioById 
   $socios = getSocioById($id);
 
     if (!empty($socios)) {
-        $socio = $socios[0];     
-        include('./views/editar.html');
+        $socio = $socios[0];
+        //Incluir html     
+        $titulo = 'Welcome Admin time to Edit';
+        $child = "editar.html";
+        include('./views/app.html');
 
     } else {
         echo "No se encontró el socio con el ID especificado.";
