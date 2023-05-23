@@ -1,8 +1,7 @@
 <?php
-/*
+$manager = new MongoDB\Driver\Manager("mongodb://root:password@mongo:27017");
 function getPolideportivos() {
-    $manager = new MongoDB\Driver\Manager("mongodb://root:password@mongo:27017");
-
+    global $manager;
     $pipeline = [
         [
             '$project' => [
@@ -38,41 +37,26 @@ function getPolideportivos() {
 
 // Obtener los datos de los polideportivos
 $polideportivos = getPolideportivos();
-*/
-
-
-
 
 $uri = $_SERVER['REQUEST_URI'];
 $uriParts = explode('/', $uri);
 array_shift($uriParts);
 
-$titulo = 'Título de la página';
+$titulo = "Título de la página";
+
 switch ($uri) {
     case '/':
-        ob_start();
-        include("./views/index.html");
-        include("./views/app.html");
-        $child = ob_get_clean();
+        $child = "index.html";
+        include('./views/app.html');
         break;
-    case '/about':
-        ob_start();
-        include("./views/about.html");
-        include("./views/app.html");
-        $child = ob_get_clean();
+    case '/membership.html':
+        $child = "membership.html";
+        include('./views/app.html');
         break;
     default:
         //Code
         break;
 }
-/*$titulo = 'Título de la página';
-include("./views/index.html");
-include("./views/app.html");*/
-
-
-
 
 
 ?>
-
-

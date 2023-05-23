@@ -1,17 +1,21 @@
-
-<div id="app">
-    <h1>Polideportivos</h1>
-    <a href="../index.html" class="btn">Volver al menú inicio</a>
-
-    <div class="card-container">
-        <?php foreach ($polideportivos as $polideportivo) { ?>
-            <div class="card">
-                <img src="<?php echo $polideportivo['img']; ?>" alt="Imagen del polideportivo" />
-                <h3><?php echo $polideportivo['nombre']; ?></h3>
-                <p><strong>Localización:</strong> <?php echo $polideportivo['localizacion']; ?></p>
-                <p><strong>Teléfono:</strong> <?php echo $polideportivo['tlf']; ?></p>
-                    
-            </div>
-        <?php } ?>
+<main>
+  <div class="container mt-3">
+    <div class="row">
+      <?php foreach ($polideportivos as $polideportivo) { ?>
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <img class="card-img-top" src="./img/<?php echo $polideportivo['img']; ?>" alt="Card image">
+          <div class="card-body">
+            <h4 class="card-title"><?php echo $polideportivo['nombre']; ?></h4>
+            <p class="card-text"><strong>Localización:</strong> <?php echo $polideportivo['localizacion']; ?></p>
+            <a href="#" class="btn btn-primary"><strong>Teléfono:</strong> <?php echo $polideportivo['tlf']; ?></a>
+          </div>
+        </div>
+      </div>
+      <?php } ?>
     </div>
-</div>
+  </div>
+</main>
+
+
+

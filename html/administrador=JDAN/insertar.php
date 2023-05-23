@@ -72,15 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $genero = $_POST['genero'];
 
   insertarSocio($idSocio, $nombre, $edad, $genero);
-  // No funciona
-  echo "<script>alert('Inserción exitosa');</script>";
 }
 else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['eliminar'])) {
   $idSocioEliminar = $_GET['eliminar'];
 
   eliminarSocio($idSocioEliminar);
-
-  echo "<script>alert('Eliminacion exitosa');</script>";
 }
 $titulo = 'Bienvenido Administrador';   
 include('./index.html');

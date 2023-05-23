@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <title><?= $titulo ?></title>
+  <title><?php echo $titulo; ?></title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,10 +25,10 @@
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)">Home</a>
+              <a class="nav-link" href="./app.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0)">Centres sportifs</a>
+              <a class="nav-link" href="">Membership</a>
             </li>
           </ul>
           <form class="d-flex">
@@ -39,9 +39,17 @@
       </div>
     </nav>
   </header>
-  <main>
-    <?= $child ?>
-  </main>
+  
+<main>
+  <?php
+  if ($child == "index.html") {
+    include('index.html');
+  }else if ($child == "membership.html"){
+    include('membership.html');
+  }
+  ?>
+</main>
+
   <footer>
     <!-- place footer here -->
     <div class="container">
@@ -72,3 +80,4 @@
 </body>
 
 </html>   
+
