@@ -26,13 +26,13 @@
           <?php echo $socio['genero']; ?>
         </td>
         <td>
-          <a class="btn btn-info btn-lg" onclick='eliminarSocio()' href='insertar.php?eliminar=<?= $socio[' idSocio']?>'>
-            <span class="glyphicon glyphicon-trash" style="size: 12px;"></span> Delete
+          <a class="btn btn-info btn-lg" onclick='eliminarSocio()' href="insertar.php?eliminar=<?= $socio['idSocio']?>">
+            <span class="material-icons">delete</span>
           </a>
         </td>
         <td>
-          <a class="btn btn-info btn-lg" href='editar_registro.php?id=<?= $socio['idSocio'] ?>'>
-            <span class="glyphicon glyphicon-repeat"></span> Update
+          <a class="btn btn-info btn-lg" href="editar_registro.php?id=<?= $socio['idSocio'] ?>">
+            <span class="material-icons">update</span>
           </a>
         </td>
       </tr>
@@ -45,7 +45,13 @@
           <td><input type="text" name="nombre"></td>
           <td><input type="text" name="edad"></td>
           <td><input type="text" name="genero"></td>
-          <td><input type="submit" value="Insert" onclick="insetarSocio()"><i class="fa fa-check-circle"></i></td>
+          <td>
+            <input type="submit" value="Insert" onclick="insetarSocio()">
+            <span class="material-icons">
+              add_task
+            </span>
+          </td>
+          
         </form>
       </tr>
       <!-- ========== End Insertar Mongo ========== -->
