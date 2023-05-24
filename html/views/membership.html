@@ -1,34 +1,42 @@
 <div class="container mt-3">
-  <h2>Resultados</h2>
-  <table class="table">
-      <thead>
-          <tr>
-              <th>Nombre Socio</th>
-              <th>Nombre Polideportivo</th>
-          </tr>
-      </thead>
-      <tbody>
-          <?php foreach ($sociosPorpolideportivos as $sociosPorpolideportivo) {
-                  echo "<tr>";
-                  echo "<td>" . $sociosPorpolideportivo['nombre_socio'] . "</td>";
-                  echo "<td>" . $sociosPorpolideportivo['nombre_polideportivo'] . "</td>";
-                  echo "</tr>";
-          }
-          ?>
-      </tbody>
-  </table>
-</div>
+    <form method="POST">
+      <div class="mb-3">
+        <label for="basic-select" class="form-label">Select:</label>
+        <select name="idSocio" class="form-select" multiple id="basic-select" data-mdb-validation="true"
+          data-mdb-valid-feedback="This value is valid" data-mdb-invalid-feedback="This value is invalid"
+          data-mdb-clear-button="true">
+          <?php foreach ($socios as $socio) { ?>
+          <option value="<?php echo $socio['idSocio']; ?>">
+            <?php echo $socio['nombre'];  ?>
+            ->MemberShip Card:
+            <?php echo $socio['idSocio']; ?>
+          </option>
+          <?php } ?>
+        </select>
+        <input type="text">
+        <label for="basic-select" class="form-label">Mebershp card:</label>
+      </div>
+      <div class="mb-3">
+        <label for="basic-select" class="form-label">Select:</label>
+        <select name="idPolideportivo" class="form-select" multiple id="basic-select" data-mdb-validation="true"
+          data-mdb-valid-feedback="This value is valid" data-mdb-invalid-feedback="This value is invalid"
+          data-mdb-clear-button="true">
+          <?php foreach ($polideportivos as $polideportivo) { ?>
+          <option value="<?php echo $polideportivo['nombre']; ?>"><?php echo $polideportivo['nombre']; ?></option>
+          <?php } ?>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="hora" class="form-label">Hora:</label>
+        <input type="time" class="form-control" id="hora" name="horaInicio">
+      </div>
+      <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha:</label>
+        <input type="date" class="form-control" id="fecha" name="fecha">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  
 
-<script>
-  function getSociosPorPolideportivo() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              document.getElementById("resultados").innerHTML = this.responseText;
-          }
-      };
-      xhttp.open("POST", "index.php", true);
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.send("sociosPorPolideportivo=true");
-  }
-</script>
+

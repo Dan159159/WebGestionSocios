@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="icon" href="../img/logo.png" type="image/png">
   <title><?php echo $titulo; ?></title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -25,10 +26,10 @@
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="./app.html">Home</a>
+              <a class="nav-link" href="../index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Membership</a>
+              <a class="nav-link" href="../membership.php">Membership</a>
             </li>
           </ul>
           <form class="d-flex">
@@ -41,14 +42,7 @@
   </header>
   
 <main>
-  <?php
-  if ($child == "index.html") {
-    include('index.html');
-  } 
-  if ($child == "membership.html"){
-    include('membership.html');
-  }
-  ?>
+  <?php echo $child;?>
 </main>
 
   <footer>
@@ -61,12 +55,6 @@
           </a>
           <span class="text-muted">© 2021 Company, Inc</span>
         </div>
-    
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-        </ul>
       </footer>
     </div>
   </footer>

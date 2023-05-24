@@ -1,69 +1,5 @@
 <?php
-// Varibales globales
-$manager = new MongoDB\Driver\Manager("mongodb://root:password@mongo:27017");
-$bulk = new MongoDB\Driver\BulkWrite;
-
-// Obetener Socios
-function getSocios() {
-  global $manager;  // Acceder a la variable global $manager
-    $pipeline = [
-        [
-            '$project' => [
-                '_id' => '$_id',
-                'idSocio' => '$idSocio',
-                'nombre' => '$nombre',
-                'edad' => '$edad',
-                'genero' => '$genero'
-            ]
-        ]
-    ];
-
-    $command = new MongoDB\Driver\Command([
-        'aggregate' => 'usuarios',
-        'pipeline' => $pipeline,
-        'cursor' => new stdClass,
-    ]);
-
-    $cursor = $manager->executeCommand('db_polideportivos', $command);
-
-    $socios = [];
-    foreach ($cursor as $document) {
-        $socios[] = [
-            '_id' => $document->_id,
-            'idSocio' => $document->idSocio,
-            'nombre' => $document->nombre,
-            'edad' => $document->edad,
-            'genero' => $document->genero
-        ];
-    }
-
-    return $socios;
-}
-$socios = getSocios();
-
-// Insertar Socios
-function insertarSocio($idSocio, $nombre, $edad, $genero) {
-  global $manager;  // Acceder a la variable global $manager
-  global $bulk;  // Acceder a la variable global $bulk
-  $documento = [
-      'idSocio' => $idSocio,
-      'nombre' => $nombre,
-      'edad' => $edad,
-      'genero' => $genero
-  ];
-  $bulk->insert($documento);
-  $manager->executeBulkWrite('db_polideportivos.usuarios', $bulk);
-}
-
-//Eliminar Socios
-function eliminarSocio($idSocio) {
-  global $manager;  
-  global $bulk; 
-
-  $filtro = ['idSocio' => $idSocio];
-  $bulk->delete($filtro);
-  $manager->executeBulkWrite('db_polideportivos.usuarios', $bulk);
-}
+require_once('metodosAdmin.php');
 // Recibir formulario 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $idSocio = $_POST['idSocio'];
@@ -80,7 +16,9 @@ else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['eliminar'])) {
 }
 // Incluir app.hmtl e index.html 
 $titulo = 'Bienvenido Administrador';
-$child = "index.html";
+ob_start();
+include('./views/index.html');
+$child = ob_get_clean();
 include('./views/app.html');
 
 ?>

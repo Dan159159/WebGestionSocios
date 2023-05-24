@@ -13,12 +13,28 @@
     <tbody>
       <?php foreach ($socios as $socio) { ?>
       <tr>
-        <td><?php echo $socio['idSocio']; ?></td>
-        <td><?php echo $socio['nombre']; ?></td>
-        <td><?php echo $socio['edad']; ?></td>
-        <td><?php echo $socio['genero']; ?></td>
-        <td><a onclick='eliminarSocio()' href='insertar.php?eliminar=<?= $socio['idSocio'] ?>'>Delete</a></td>
-        <td><a href='editar_registro.php?id=<?= $socio['idSocio'] ?>'>Update</a></td>
+        <td>
+          <?php echo $socio['idSocio']; ?>
+        </td>
+        <td>
+          <?php echo $socio['nombre']; ?>
+        </td>
+        <td>
+          <?php echo $socio['edad']; ?>
+        </td>
+        <td>
+          <?php echo $socio['genero']; ?>
+        </td>
+        <td>
+          <a class="btn btn-info btn-lg" onclick='eliminarSocio()' href='insertar.php?eliminar=<?= $socio[' idSocio']?>'>
+            <span class="glyphicon glyphicon-trash" style="size: 12px;"></span> Delete
+          </a>
+        </td>
+        <td>
+          <a class="btn btn-info btn-lg" href='editar_registro.php?id=<?= $socio['idSocio'] ?>'>
+            <span class="glyphicon glyphicon-repeat"></span> Update
+          </a>
+        </td>
       </tr>
       <?php } ?>
 
@@ -29,8 +45,7 @@
           <td><input type="text" name="nombre"></td>
           <td><input type="text" name="edad"></td>
           <td><input type="text" name="genero"></td>
-          <td></td>
-          <td><input type="submit" value="Insert" onclick="insetarSocio()"></td>
+          <td><input type="submit" value="Insert" onclick="insetarSocio()"><i class="fa fa-check-circle"></i></td>
         </form>
       </tr>
       <!-- ========== End Insertar Mongo ========== -->
@@ -54,40 +69,39 @@
       event.preventDefault();
     }
   }
-    function insetarSocio() {
-      // Mostrar mensaje de confirmación
-      var respuesta = confirm("¿Estás seguro de que deseas ejecutar esta acción?");
+  function insetarSocio() {
+    // Mostrar mensaje de confirmación
+    var respuesta = confirm("¿Estás seguro de que deseas ejecutar esta acción?");
 
-      // Si el usuario acepta
-      if (respuesta=== true) {
-        $(document).ready(function() {
-        $("form").submit(function(e) {
-            e.preventDefault();
-            var idSocio = $("input[name=idSocio]").val();
-            var nombre = $("input[name=nombre]").val();
-            var edad = $("input[name=edad]").val();
-            var genero = $("input[name=genero]").val();
+    // Si el usuario acepta
+    if (respuesta === true) {
+      $(document).ready(function () {
+        $("form").submit(function (e) {
+          e.preventDefault();
+          var idSocio = $("input[name=idSocio]").val();
+          var nombre = $("input[name=nombre]").val();
+          var edad = $("input[name=edad]").val();
+          var genero = $("input[name=genero]").val();
 
-            $.ajax({
-                url: "insertar.php",
-                method: "POST",
-                data: {idSocio: idSocio, nombre: nombre, edad: edad, genero: genero},
-                success: function(response) {
-                    // Aquí puedes realizar alguna acción después de la inserción exitosa, como mostrar un mensaje o actualizar la tabla de socios.
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    // Manejo de errores en caso de que la inserción falle.
-                    console.log(error);
-                }
-            });
+          $.ajax({
+            url: "insertar.php",
+            method: "POST",
+            data: { idSocio: idSocio, nombre: nombre, edad: edad, genero: genero },
+            success: function (response) {
+              // Aquí puedes realizar alguna acción después de la inserción exitosa, como mostrar un mensaje o actualizar la tabla de socios.
+              console.log(response);
+            },
+            error: function (xhr, status, error) {
+              // Manejo de errores en caso de que la inserción falle.
+              console.log(error);
+            }
+          });
         });
-    });
-        // Actualizar la página
-        location.reload();
-      }else{
-        return;
-      }
+      });
+      // Actualizar la página
+      location.reload();
+    } else {
+      return;
     }
-    
+  }
 </script>
