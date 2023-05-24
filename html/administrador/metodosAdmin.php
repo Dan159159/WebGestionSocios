@@ -145,10 +145,8 @@ function getSocioById($id) {
     }
   }
 
-  echo '</br><div>
-  <h1 style="color:black;
-  background-color:red;
-  border-radius:20px;">Error</h1>
-  </div>';
+  echo '<div class="alert alert-danger">
+      <strong>Danger!</strong> Usuario or password is/are incorrect(s).
+    </div>';
 }
 ?>
