@@ -3,8 +3,10 @@
 $manager = new MongoDB\Driver\Manager("mongodb://root:password@mongo:27017");
 $bulk = new MongoDB\Driver\BulkWrite;
 
+// Obtener polideportivos
 function getPolideportivos() {
     global $manager;
+    // Campos polideportivos
     $pipeline = [
         [
             '$project' => [
@@ -16,7 +18,7 @@ function getPolideportivos() {
             ]
         ]
     ];
-
+    // Base de datos
     $command = new MongoDB\Driver\Command([
         'aggregate' => 'polideportivos',
         'pipeline' => $pipeline,
@@ -24,7 +26,7 @@ function getPolideportivos() {
     ]);
 
     $cursor = $manager->executeCommand('db_polideportivos', $command);
-
+    // Guardar datos en Array
     $polideportivos = [];
     foreach ($cursor as $document) {
         $polideportivos[] = [
@@ -37,11 +39,12 @@ function getPolideportivos() {
 
     return $polideportivos;
 }
-// Obtener los datos de los polideportivos
 $polideportivos = getPolideportivos();
+
 // Obtener Socios
 function getSocios() {
-    global $manager;  // Acceder a la variable global $manager
+    global $manager; 
+    // Campos usuarios
       $pipeline = [
           [
               '$project' => [
@@ -51,7 +54,6 @@ function getSocios() {
               ]
           ]
       ];
-  
       $command = new MongoDB\Driver\Command([
           'aggregate' => 'usuarios',
           'pipeline' => $pipeline,
@@ -59,7 +61,7 @@ function getSocios() {
       ]);
   
       $cursor = $manager->executeCommand('db_polideportivos', $command);
-  
+      // Guardar datos en Array
       $socios = [];
       foreach ($cursor as $document) {
           $socios[] = [
@@ -72,6 +74,7 @@ function getSocios() {
       return $socios;
   }
   $socios = getSocios();
+
   // Insertar entrada
   function insertarEntrada($idSocio, $idPolideportivo, $fecha, $horaInicio) {
     global $manager;  
@@ -85,9 +88,8 @@ function getSocios() {
     $bulk->insert($documento);
     $manager->executeBulkWrite('db_polideportivos.asistencia', $bulk);
   }
-  $manager = new MongoDB\Driver\Manager("mongodb://root:password@mongo:27017");
-$bulk = new MongoDB\Driver\BulkWrite;
-//Query 1
+  
+//Query 1/2
 function getSociosPorPolideportivo() {
     global $manager;
 
@@ -114,6 +116,14 @@ function getSociosPorPolideportivo() {
             ]
         ],
         [
+            '$project' => [
+                'idPolideportivo' => '$_id.idPolideportivo',
+                'CantEntrada' => 1,
+                'idSocio' => '$_id.idSocio',
+                'nombre' => 1
+            ]
+        ],
+        [
             '$sort' => ['CantEntrada' => -1]
         ]
     ];
@@ -129,9 +139,9 @@ function getSociosPorPolideportivo() {
     $sociosPorpolideportivos = [];
     foreach ($cursor as $document) {
         $sociosPorpolideportivos[] = [
-            'idPolideportivo' => $idPolideportivo,
+            'idPolideportivo' => $document->idPolideportivo,
             'CantEntrada' => $document->CantEntrada,
-            'idSocio' =>$idSocio,
+            'idSocio' => $document->idSocio,
             'nombre' => $document->nombre
         ];
     }
@@ -140,7 +150,7 @@ function getSociosPorPolideportivo() {
 }
 
 $sociosPorpolideportivos = getSociosPorPolideportivo();
-
+//Query2
 
 
 ?>

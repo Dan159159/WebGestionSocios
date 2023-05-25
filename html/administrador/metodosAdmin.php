@@ -64,6 +64,7 @@ function eliminarSocio($idSocio) {
   $bulk->delete($filtro);
   $manager->executeBulkWrite('db_polideportivos.usuarios', $bulk);
 }
+
 // Obenter socio segun el ID
 function getSocioById($id) {
     global $manager;
@@ -100,6 +101,7 @@ function getSocioById($id) {
   
     $manager->executeBulkWrite('db_polideportivos.usuarios', $bulk);
   }
+  
   // Obtener admins y su contraseña de bd
   function getAdmins(){
     global $manager;
@@ -144,7 +146,7 @@ function getSocioById($id) {
       return;
     }
   }
-
+  // Mensaje cuando sea incorrecto
   echo '<div class="alert alert-danger">
       <strong>Danger!</strong> Usuario or password is/are incorrect(s).
     </div>';

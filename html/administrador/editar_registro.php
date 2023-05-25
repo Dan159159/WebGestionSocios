@@ -1,7 +1,6 @@
 <?php
 require_once('metodosAdmin.php');
 // Cambios en el formulario
-// Ejcutar  actualizar Socio
 $id = $_GET['id'] ?? null;
 
 if ($id) {
@@ -10,7 +9,7 @@ if ($id) {
       $nombre = $_POST['nombre'];
       $edad = $_POST['edad'];
       $genero = $_POST['genero'];
-
+  // Ejcutar  actualizar Socio
       actualizarSocio($idSocio, $nombre, $edad, $genero);
   }
 // Ejcutar getSocioById 

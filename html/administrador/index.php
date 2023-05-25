@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     comparar($user, $password);
   }
+// Definir tiulo y child
 $titulo = "Sign Up!!";
 ob_start();
 include('./views/seguridad.html');

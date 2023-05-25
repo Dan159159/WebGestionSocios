@@ -1,5 +1,6 @@
 <?php
 require_once('metodosAdmin.php');
+
 // Recibir formulario 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $idSocio = $_POST['idSocio'];

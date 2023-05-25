@@ -1,20 +1,26 @@
-<table>
-    <thead>
-        <tr>
-            <th>Polideportivo</th>
-            <th>Cantidad de Entradas</th>
-            <th>ID de Socio</th>
-            <th>Nombre</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($sociosPorpolideportivos as $socio) { ?>
-            <tr>
-                <td><?php echo $socio['idPolideportivo']; ?></td>
-                <td><?php echo $socio['CantEntrada']; ?></td>
-                <td><?php echo $socio['idSocio']; ?></td>
-                <td><?php echo $socio['nombre']; ?></td>
+
+    <table  class="table">
+        <h1>Socios por Polideportivo</h1>
+        <thead>
+            <tr class="table-dark">
+                <th>ID Polideportivo</th>
+                <th>Nombre Polideportivo</th>
+                <th>Cantidad de Entradas</th>
+                <th>Socios</th>
             </tr>
-        <?php } ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php foreach ($sociosPorpolideportivos as $socio) : ?>
+                <tr>
+                    <td><?php echo $socio['idPolideportivo']; ?></td>
+                    <td><?php echo $socio['CantEntrada']; ?></td>
+                    <td><?php echo $socio['idSocio']; ?></td>
+                    <td>
+                        <?php foreach ($socio['nombre'] as $nombreSocio) : ?>
+                            <span><?php echo $nombreSocio; ?></span><br>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>

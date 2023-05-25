@@ -61,11 +61,14 @@
   function eliminarSocio() {
     // Mostrar mensaje de confirmación
     var respuesta = confirm("¿Estás seguro de que deseas eliminar este socio?");
-
     // Si el usuario acepta
     if (respuesta) {
       // Continuar con la acción de eliminación
       location.href = event.target.href;
+      // Esperar 1 milisegundo y luego recargar la página
+      setTimeout(function() {
+        location.reload();
+      }, 1);
     } else {
       // Cancelar la acción de eliminación
       event.preventDefault();
@@ -74,11 +77,12 @@
   function insetarSocio() {
     // Mostrar mensaje de confirmación
     var respuesta = confirm("¿Estás seguro de que deseas ejecutar esta acción?");
-
     // Si el usuario acepta
     if (respuesta === true) {
-      // Actualizar la página
-      location.reload();
+      // Esperar 1 milisegundo y luego recargar la página
+    setTimeout(function() {
+        location.reload();
+      }, 1);
     } else {
       return;
     }
