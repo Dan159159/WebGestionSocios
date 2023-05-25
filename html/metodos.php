@@ -39,61 +39,6 @@ function getPolideportivos() {
 }
 // Obtener los datos de los polideportivos
 $polideportivos = getPolideportivos();
-
-function getSociosPorPolideportivo() {
-    global $manager;
-    $pipeline = [
-        [
-            '$lookup' => [
-                'from' => 'polideportivos',
-                'localField' => 'idPolideportivo',
-                'foreignField' => '_id',
-                'as' => 'polideportivo'
-            ]
-        ],
-        [
-            '$unwind' => '$polideportivo'
-        ],
-        [
-            '$lookup' => [
-                'from' => 'usuarios',
-                'localField' => 'idSocio',
-                'foreignField' => '_id',
-                'as' => 'socio'
-            ]
-        ],
-        [
-            '$unwind' => '$socio'
-        ],
-        [
-            '$project' => [
-                '_id' => 0,
-                'socio.nombre' => 1,
-                'polideportivo.nombre' => 1
-            ]
-        ]
-    ];
-
-    $command = new MongoDB\Driver\Command([
-        'aggregate' => 'asistencia',
-        'pipeline' => $pipeline,
-        'cursor' => new stdClass,
-    ]);
-
-    $cursor = $manager->executeCommand('db_polideportivos', $command);
-
-    $sociosPorpolideportivos = [];
-    foreach ($cursor as $document) {
-        $result[] = [
-            'nombre_socio' => $document->socio->nombre,
-            'nombre_polideportivo' => $document->polideportivo->nombre
-        ];
-    }
-
-    return $sociosPorpolideportivos;
-
-}
-$sociosPorpolideportivos = getSociosPorPolideportivo();
 // Obtener Socios
 function getSocios() {
     global $manager;  // Acceder a la variable global $manager
@@ -140,4 +85,62 @@ function getSocios() {
     $bulk->insert($documento);
     $manager->executeBulkWrite('db_polideportivos.asistencia', $bulk);
   }
+  $manager = new MongoDB\Driver\Manager("mongodb://root:password@mongo:27017");
+$bulk = new MongoDB\Driver\BulkWrite;
+//Query 1
+function getSociosPorPolideportivo() {
+    global $manager;
+
+    $pipeline = [
+        [
+            '$lookup' => [
+                'from' => 'usuarios',
+                'localField' => 'idSocio',
+                'foreignField' => 'idSocio',
+                'as' => 'usuario'
+            ]
+        ],
+        [
+            '$unwind' => '$usuario'
+        ],
+        [
+            '$group' => [
+                '_id' => [
+                    'idPolideportivo' => '$idPolideportivo',
+                    'idSocio' => '$idSocio'
+                ],
+                'CantEntrada' => ['$sum' => 1],
+                'nombre' => ['$first' => '$usuario.nombre']
+            ]
+        ],
+        [
+            '$sort' => ['CantEntrada' => -1]
+        ]
+    ];
+
+    $command = new MongoDB\Driver\Command([
+        'aggregate' => 'asistencia',
+        'pipeline' => $pipeline,
+        'cursor' => new stdClass,
+    ]);
+
+    $cursor = $manager->executeCommand('db_polideportivos', $command);
+
+    $sociosPorpolideportivos = [];
+    foreach ($cursor as $document) {
+        $sociosPorpolideportivos[] = [
+            'idPolideportivo' => $idPolideportivo,
+            'CantEntrada' => $document->CantEntrada,
+            'idSocio' =>$idSocio,
+            'nombre' => $document->nombre
+        ];
+    }
+
+    return $sociosPorpolideportivos;
+}
+
+$sociosPorpolideportivos = getSociosPorPolideportivo();
+
+
+
 ?>

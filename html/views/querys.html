@@ -1,0 +1,20 @@
+<table>
+    <thead>
+        <tr>
+            <th>Polideportivo</th>
+            <th>Cantidad de Entradas</th>
+            <th>ID de Socio</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($sociosPorpolideportivos as $socio) { ?>
+            <tr>
+                <td><?php echo $socio['idPolideportivo']; ?></td>
+                <td><?php echo $socio['CantEntrada']; ?></td>
+                <td><?php echo $socio['idSocio']; ?></td>
+                <td><?php echo $socio['nombre']; ?></td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>

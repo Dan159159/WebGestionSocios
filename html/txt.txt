@@ -1,6 +1,7 @@
 Bases de datos – Consultas necesarias:
 a. Obtén los socios que más acuden al polideportivo
-b. Obtén los socios que más acuden por polideportivo
+//b. Obtén los socios que más acuden por polideportivo
+Select  a.idPolideportivo, COUNT(a.idSocio) as Cant.Entrada, u.nombre FROM asistencia a INNER JOIn usuarios u On a.idSocio = u.idSocio  ORDER BY Cant.Entrada DESC;  
 c. Obtén la media de gente que va los sábados al polideportivo (por cada
 polideportivo)
 d. Obtén los socios que han ido al polideportivo menos de 5 días al mes
