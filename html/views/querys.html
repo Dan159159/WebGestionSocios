@@ -1,12 +1,11 @@
 
     <table  class="table">
-        <h1>Socios por Polideportivo</h1>
+        <h2>Socios por Polideportivo</h2>
         <thead>
             <tr class="table-dark">
-                <th>ID Polideportivo</th>
-                <th>Nombre Polideportivo</th>
-                <th>Cantidad de Entradas</th>
-                <th>Socios</th>
+                <th>Name Polideportivo</th>
+                <th>Count entrys</th>
+                <th>Membership card</th>
             </tr>
         </thead>
         <tbody>
@@ -15,12 +14,46 @@
                     <td><?php echo $socio['idPolideportivo']; ?></td>
                     <td><?php echo $socio['CantEntrada']; ?></td>
                     <td><?php echo $socio['idSocio']; ?></td>
-                    <td>
-                        <?php foreach ($socio['nombre'] as $nombreSocio) : ?>
-                            <span><?php echo $nombreSocio; ?></span><br>
-                        <?php endforeach; ?>
-                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    <table class="table">
+        <h2>Todos los socios Por Polideportivos</h2>
+        <thead>
+            <tr class="table-dark">
+                <th>Polideportivo</th>
+                <th>Socio</th>
+                <th>Cantidad de Entradas</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($sociosPorpolideportivos as $socio) { ?>
+                <tr>
+                    <td><?php echo $socio['idPolideportivo']; ?></td>
+                    <td><?php echo $socio['nombre']; ?></td>
+                    <td><?php echo $socio['CantEntrada']; ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <!-- ========== Start Section
+    
+   
+    <table class="table">
+        <tr class="table-dark">
+            <th>Polideportivo</th>
+            <th>Socio</th>
+            <th>Mes</th>
+            <th>Cantidad de Entradas</th>
+        </tr>
+        <?php foreach ($sociosMenosCincoDias as $socio) { ?>
+            <tr>
+                <td><?php echo $socio['idPolideportivo']; ?></td>
+                <td><?php echo $socio['nombre']; ?></td>
+                <td><?php echo $socio['Mes']; ?></td>
+                <td><?php echo $socio['CantEntrada']; ?></td>
+            </tr>
+        <?php } ?>
+    </table>
+     ========== -->

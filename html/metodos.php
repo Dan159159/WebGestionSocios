@@ -150,7 +150,140 @@ function getSociosPorPolideportivo() {
 }
 
 $sociosPorpolideportivos = getSociosPorPolideportivo();
+
 //Query2
+function getTodosSociosPorPolideportivo() {
+    global $manager;
 
+    $pipeline = [
+        [
+            '$lookup' => [
+                'from' => 'usuarios',
+                'localField' => 'idSocio',
+                'foreignField' => 'idSocio',
+                'as' => 'usuario'
+            ]
+        ],
+        [
+            '$unwind' => '$usuario'
+        ],
+        [
+            '$group' => [
+                '_id' => [
+                    'idPolideportivo' => '$idPolideportivo',
+                    'idSocio' => '$idSocio'
+                ],
+                'CantEntrada' => ['$sum' => 1],
+                'nombre' => ['$first' => '$usuario.nombre']
+            ]
+        ],
+        [
+            '$project' => [
+                '_id' => 0,
+                'idPolideportivo' => '$_id.idPolideportivo',
+                'CantEntrada' => 1,
+                'idSocio' => '$_id.idSocio',
+                'nombre' => 1
+            ]
+        ],
+        [
+            '$sort' => ['CantEntrada' => -1]
+        ]
+    ];
 
+    $command = new MongoDB\Driver\Command([
+        'aggregate' => 'asistencia',
+        'pipeline' => $pipeline,
+        'cursor' => new stdClass,
+    ]);
+
+    $cursor = $manager->executeCommand('db_polideportivos', $command);
+
+    $todosSociosPorpolideportivos = [];
+    foreach ($cursor as $document) {
+        $todosSociosPorpolideportivos[] = [
+            'idPolideportivo' => $document->idPolideportivo,
+            'CantEntrada' => $document->CantEntrada,
+            'idSocio' => $document->idSocio,
+            'nombre' => $document->nombre
+        ];
+    }
+
+    return $todosSociosPorpolideportivos;
+}
+
+$todosSociosPorpolideportivos = getTodosSociosPorPolideportivo();
+
+// Socios en menos de cinco dias
+/*function getSociosMenosCincoDias() {
+    global $manager;
+
+    $pipeline = [
+        [
+            '$lookup' => [
+                'from' => 'usuarios',
+                'localField' => 'idSocio',
+                'foreignField' => 'idSocio',
+                'as' => 'usuario'
+            ]
+        ],
+        [
+            '$unwind' => '$usuario'
+        ],
+        [
+            '$group' => [
+                '_id' => [
+                    'idPolideportivo' => '$idPolideportivo',
+                    'idSocio' => '$idSocio',
+                    'month' => ['$month' => '$fecha']
+                ],
+                'CantEntrada' => ['$sum' => 1],
+                'nombre' => ['$first' => '$usuario.nombre']
+            ]
+        ],
+        [
+            '$match' => [
+                'CantEntrada' => ['$lt' => 5]
+            ]
+        ],
+        [
+            '$project' => [
+                '_id' => 0,
+                'idPolideportivo' => '$_id.idPolideportivo',
+                'idSocio' => '$_id.idSocio',
+                'nombre' => 1,
+                'Mes' => '$_id.month',
+                'CantEntrada' => 1
+            ]
+        ],
+        [
+            '$sort' => ['CantEntrada' => -1]
+        ]
+    ];
+
+    $command = new MongoDB\Driver\Command([
+        'aggregate' => 'asistencia',
+        'pipeline' => $pipeline,
+        'cursor' => new stdClass,
+    ]);
+
+    $cursor = $manager->executeCommand('db_polideportivos', $command);
+
+    $sociosMenosCincoDias = [];
+    foreach ($cursor as $document) {
+        $sociosMenosCincoDias[] = [
+            'idPolideportivo' => $document->idPolideportivo,
+            'idSocio' => $document->idSocio,
+            'nombre' => $document->nombre,
+            'Mes' => $document->Mes,
+            'CantEntrada' => $document->CantEntrada
+        ];
+    }
+
+    return $sociosMenosCincoDias;
+}
+
+$sociosMenosCincoDias = getSociosMenosCincoDias();
+
+*/
 ?>
